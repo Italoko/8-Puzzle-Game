@@ -21,13 +21,31 @@ namespace _8_Puzzle.Algorithms
                 for (int y = 0; y < Constants.N; y++)
                     if (initial[x, y] != goal[x, y] && initial[x, y] != 0)
                         count++;
-            return (count);
+            return count;
         }
         //Valida posição do quadro branco na matriz ( no ato de swap ) 
         private bool validatePosition(int x, int y)
         {
             if (x >= 0 && x < Constants.N && y >= 0 && y < Constants.N)
                 return true;
+            return false;
+        }
+        //Verifica se uma matriz é igual a outra
+        private bool equalsMat(int[,]m1, int[,] m2)
+        {
+            int count = 0;
+            for (int x = 0; x < Constants.N && count == 0; x++)
+                for (int y = 0; y < Constants.N; y++)
+                    if (m1[x, y] != m2[x, y])
+                        count++;
+            return count == 0;
+        }
+        //Verifica se esse estado(matriz) ja existe na lista fechada
+        private bool contains(List<int[,]>closedList,int[,]matTemp)
+        {
+            foreach (int[,] mat in closedList)
+                if (equalsMat(mat, matTemp))
+                    return true;
             return false;
         }
         //Faz a troca do quadro branco com nova posição
@@ -64,8 +82,10 @@ namespace _8_Puzzle.Algorithms
         {
             //Fila com prioridade para armazenar os nodos
             PriorityQueue pq = new PriorityQueue();
-           
+            List<int[,]> closedList = new List<int[,]>();
+
             Node root = new Node(null, initial,0,calculateCost(initial,goal)); //Node raiz
+            int mov = 0;        // Quantidade de movimentações 
             bool flag = false; // Flag para verificar se encontrou ou não.
             int[,] matTemp;    // Cópia temporária da matriz
                               // bottom, left, top, right
@@ -73,10 +93,11 @@ namespace _8_Puzzle.Algorithms
             int[] col = new int[] { 0, -1, 0, 1 };
 
             pq.enqueue(root);
-            while (!pq.isEmpty() && !flag)
+            closedList.Add(root.Mat);
+            while (!pq.isEmpty() && !flag && mov <= Constants.maxMovements)
             {
                 lowestCost = pq.dequeue();
-
+                
                 if (lowestCost.H == 0) //encontrou
                     flag = true;
                 else
@@ -85,12 +106,19 @@ namespace _8_Puzzle.Algorithms
                         {
                             matTemp = copyMat(lowestCost.Mat);
                             swap(matTemp, lowestCost.X, lowestCost.Y, lowestCost.X + row[i], lowestCost.Y + col[i]);
-                            Node child = new Node(lowestCost, matTemp, lowestCost.G + 1, calculateCost(matTemp, goal));
-
-                            pq.enqueue(child);
+                            if (!contains(closedList,matTemp))
+                            {
+                                Node child = new Node(lowestCost, matTemp, lowestCost.G + 1, calculateCost(matTemp, goal));
+                                pq.enqueue(child);
+                                closedList.Add(child.Mat);
+                            }
                         }
+                mov++;
             }
-            printPath(lowestCost);
+            if (mov <= Constants.maxMovements)
+                printPath(lowestCost);
+            else
+                Console.WriteLine($"Máximo de movimentações atingido:{Constants.maxMovements}| Qtd de mov: {mov}");
         }
     }
 }

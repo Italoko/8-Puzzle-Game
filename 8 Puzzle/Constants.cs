@@ -9,5 +9,6 @@ namespace _8_Puzzle.Models
     static class Constants
     {
         public const int N = 3;
+        public const int maxMovements = 100000;
     }
 }
