@@ -108,7 +108,7 @@ namespace _8_Puzzle.Algorithms
                             swap(matTemp, lowestCost.X, lowestCost.Y, lowestCost.X + row[i], lowestCost.Y + col[i]);
                             if (!contains(closedList,matTemp))
                             {
-                                Node child = new Node(lowestCost, matTemp, lowestCost.G + 1, calculateCost(matTemp, goal));
+                                Node child = new Node(lowestCost, matTemp, lowestCost.G + Constants.Weight, calculateCost(matTemp, goal));
                                 pq.enqueue(child);
                                 closedList.Add(child.Mat);
                             }
