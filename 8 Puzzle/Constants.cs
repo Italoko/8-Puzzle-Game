@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace _8_Puzzle.Models
+namespace _8_Puzzle
 {
     static class Constants
     {
