@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace _8_Puzzle.Models
 {
-    class Node
+    public class Node
     { 
         //Nó pai (ant)
         Node _parent;
@@ -22,6 +22,7 @@ namespace _8_Puzzle.Models
         */
         int _f,_g,_h;
 
+        //Usado p/ A*
         public Node(Node parent, int[,] mat,int g,int h)
         {
             G = g;
@@ -30,6 +31,17 @@ namespace _8_Puzzle.Models
             _parent = parent;
             Mat = mat;
             (_x,_y) = identifyBlankBoard();
+        }
+
+        //Usado p/ Best-First
+        public Node(Node parent, int[,] mat, int h)
+        {
+            G = 0;
+            H = h;
+            F = G + H;
+            _parent = parent;
+            Mat = mat;
+            (_x, _y) = identifyBlankBoard();
         }
 
         public Node()

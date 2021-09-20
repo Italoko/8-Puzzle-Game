@@ -18,7 +18,12 @@ namespace _8_Puzzle.Application
                     astar.solve(initial, goal);
                     break;
                 case 2:
-                    //OutroAlgoritmo(initial, goal);
+                    BestFirst bf = new BestFirst();
+                    bf.solve(initial, goal);
+                    break;
+                case 3:
+                    BranchAndBound bb = new BranchAndBound();
+                    bb.solve(initial, goal);
                     break;
             }
         }
