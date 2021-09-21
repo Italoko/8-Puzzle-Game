@@ -25,9 +25,6 @@ namespace _8_Puzzle.Algorithms
             int mov = 0;        // Quantidade de movimentações 
             bool flag = false; // Flag para verificar se encontrou ou não.
             int[,] matTemp;    // Cópia temporária da matriz
-                              // bottom, left, top, right
-            int[] row = new int[] { 1, 0, -1, 0 };
-            int[] col = new int[] { 0, -1, 0, 1 };
 
             pq.enqueue(root);
             closedList.Add(root.Mat);

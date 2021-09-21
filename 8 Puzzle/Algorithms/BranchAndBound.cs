@@ -20,9 +20,6 @@ namespace _8_Puzzle.Algorithms
             int mov = 0;
             bool flag = false;
             int[,] matTemp;
-            // bottom, left, top, right
-            int[] row = new int[] { 1, 0, -1, 0 };
-            int[] col = new int[] { 0, -1, 0, 1 };
 
             pq.enqueue(root);
             closedList.Add(root.Mat);

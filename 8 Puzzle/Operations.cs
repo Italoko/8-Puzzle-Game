@@ -9,6 +9,10 @@ namespace _8_Puzzle
 {
     public abstract class Operations
     {
+        // bottom, left, top, right
+        public int[] row = new int[] { 1, 0, -1, 0 };
+        public int[] col = new int[] { 0, -1, 0, 1 };
+
         //Calcula qtd de peças fora do lugar.
         public int calculateCost(int[,] initial, int[,] goal)
         {
