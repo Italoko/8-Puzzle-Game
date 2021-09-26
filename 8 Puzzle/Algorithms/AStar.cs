@@ -15,7 +15,7 @@ namespace _8_Puzzle.Algorithms
         {}
         
         // Resolução A*
-        public void solve(int[,] initial, int[,] goal)
+        public SolutionStatistics solve(int[,] initial, int[,] goal)
         {
             //Fila com prioridade para armazenar os nodos
             PriorityQueue pq = new PriorityQueue();
@@ -23,15 +23,18 @@ namespace _8_Puzzle.Algorithms
 
             Node root = new Node(null, initial,0,calculateCost(initial,goal)); //Node raiz
             int mov = 0;        // Quantidade de movimentações 
+            int qtdStates = 0; // qtd de estados possíveis gerados
             bool flag = false; // Flag para verificar se encontrou ou não.
             int[,] matTemp;    // Cópia temporária da matriz
+
+            DateTime start = DateTime.Now; // Começo da solução 
 
             pq.enqueue(root);
             closedList.Add(root.Mat);
             while (!pq.isEmpty() && !flag && mov <= Constants.maxMovements)
             {
                 lowestCost = pq.dequeue();
-                
+
                 if (lowestCost.H == 0) //encontrou
                     flag = true;
                 else
@@ -40,22 +43,19 @@ namespace _8_Puzzle.Algorithms
                         {
                             matTemp = copyMat(lowestCost.Mat);
                             swap(matTemp, lowestCost.X, lowestCost.Y, lowestCost.X + row[i], lowestCost.Y + col[i]);
-                            if (!contains(closedList,matTemp))
+                            if (!contains(closedList, matTemp))
                             {
                                 Node child = new Node(lowestCost, matTemp, lowestCost.G + Constants.Weight, calculateCost(matTemp, goal));
                                 pq.enqueue(child);
                                 closedList.Add(child.Mat);
                             }
+                            qtdStates++;
                         }
                 mov++;
             }
-            if (mov <= Constants.maxMovements)
-            {
-                printPath(lowestCost);
-                Console.WriteLine($"Qtd. Movimentações:{mov}");
-            }
-            else
-                Console.WriteLine($"Máximo de movimentações atingido:{Constants.maxMovements}| Qtd de mov: {mov}");
+            DateTime end = DateTime.Now; // fim da solução
+            printPath(lowestCost);
+            return new SolutionStatistics(start,end,mov,qtdStates, lowestCost);           
         }
     }
 }

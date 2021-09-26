@@ -8,21 +8,24 @@ using System.Threading.Tasks;
 
 namespace _8_Puzzle.Algorithms
 {
-    public sealed class BestFirst : Operations
+    public class BestFirst : Operations
     {
         Node lowestCost;
         public BestFirst()
         { }
 
-        public void solve(int[,] initial, int[,] goal)
+        public SolutionStatistics solve(int[,] initial, int[,] goal)
         {
             PriorityQueue pq = new PriorityQueue();
             List<int[,]> closedList = new List<int[,]>();
 
             Node root = new Node(null, initial,calculateCost(initial, goal)); 
-            int mov = 0;        
+            int mov = 0;
+            int qtdStates = 0;
             bool flag = false; 
-            int[,] matTemp;    
+            int[,] matTemp;
+
+            DateTime start = DateTime.Now;
 
             pq.enqueue(root);
             closedList.Add(root.Mat);
@@ -44,16 +47,14 @@ namespace _8_Puzzle.Algorithms
                                 pq.enqueue(child);
                                 closedList.Add(child.Mat);
                             }
+                            qtdStates++;
                         }
                 mov++;
             }
-            if (mov <= Constants.maxMovements)
-            {
-                printPath(lowestCost);
-                Console.WriteLine($"Qtd. Movimentações:{mov}");
-            }
-            else
-                Console.WriteLine($"Máximo de movimentações atingido:{Constants.maxMovements}| Qtd de mov: {mov}");
+            closedList.Add(goal);
+            DateTime end = DateTime.Now;
+            printPath(lowestCost);
+            return new SolutionStatistics(start, end, mov, qtdStates, lowestCost);
         }
     }
 }

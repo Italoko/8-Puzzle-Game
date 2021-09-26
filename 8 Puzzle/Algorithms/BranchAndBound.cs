@@ -11,15 +11,18 @@ namespace _8_Puzzle.Algorithms
     class BranchAndBound : Operations
     {
         Node lowestCost;
-        public void solve(int[,] initial, int[,] goal)
+        public SolutionStatistics solve(int[,] initial, int[,] goal)
         {
             PriorityQueue pq = new PriorityQueue();
             List<int[,]> closedList = new List<int[,]>();
 
             Node root = new Node() {Parent = null,Mat=initial, G = 0,F=0};
             int mov = 0;
+            int qtdStates = 0;
             bool flag = false;
             int[,] matTemp;
+
+            DateTime start = DateTime.Now;
 
             pq.enqueue(root);
             closedList.Add(root.Mat);
@@ -45,18 +48,14 @@ namespace _8_Puzzle.Algorithms
                                 pq.enqueue(child);
                                 closedList.Add(child.Mat);
                             }
-                                
+                            qtdStates++;
                         }
                 mov++;
             }
-            if (mov <= Constants.maxMovements)
-            {
-                printPath(lowestCost);
-                Console.WriteLine($"Qtd. Movimentações:{mov}");
-            }
-            else
-                Console.WriteLine($"Máximo de movimentações atingido:{Constants.maxMovements}| Qtd de mov: {mov}");
+            closedList.Add(goal);// add o ultimo estado.
+            DateTime end = DateTime.Now; // fim da solução
+            printPath(lowestCost);
+            return new SolutionStatistics(start, end, mov, qtdStates, lowestCost);
         }
-
     }
 }

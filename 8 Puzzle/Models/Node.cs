@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace _8_Puzzle.Models
 {
-    public class Node
+    public class Node 
     { 
         //Nó pai (ant)
         Node _parent;
