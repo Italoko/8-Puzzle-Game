@@ -30,6 +30,7 @@ namespace _8_Puzzle
                 return true;
             return false;
         }
+        
         //Faz a troca do quadro branco com nova posição
         public void swap(int[,] mat, int x, int y, int newX, int newY)
         {
@@ -74,7 +75,7 @@ namespace _8_Puzzle
             {
                 printPath(final.Parent);
                 final.printBoard();
-                Console.WriteLine("-------------");
+                Console.WriteLine("   ");
             }
         }
     }
