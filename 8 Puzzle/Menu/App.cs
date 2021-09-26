@@ -4,28 +4,27 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using _8_Puzzle.Algorithms;
+using _8_Puzzle.Models;
 
-namespace _8_Puzzle.Application
+namespace _8_Puzzle.Menu
 {
     class App
     {
-        public void menu(int[,] initial, int[,] goal, int op)
+        public SolutionStatistics menu(int[,] initial, int[,] goal, int op)
         {
             switch(op)
             {
-                case 1:
+                case 0:
                     AStar astar = new AStar();
-                    astar.solve(initial, goal);
-                    break;
-                case 2:
+                    return astar.solve(initial, goal);
+                case 1:
                     BestFirst bf = new BestFirst();
-                    bf.solve(initial, goal);
-                    break;
-                case 3:
+                    return bf.solve(initial, goal);
+                case 2:
                     BranchAndBound bb = new BranchAndBound();
-                    bb.solve(initial, goal);
-                    break;
+                    return bb.solve(initial, goal);
             }
+            return null;
         }
     }
 }
