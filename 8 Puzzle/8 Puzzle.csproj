@@ -60,7 +60,6 @@
     <Compile Include="Constants.cs" />
     <Compile Include="Models\Node.cs" />
     <Compile Include="lib\Operations.cs" />
-    <Compile Include="lib\OperationsMat.cs" />
     <Compile Include="Models\SolutionStatistics.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
