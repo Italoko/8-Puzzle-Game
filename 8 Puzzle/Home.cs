@@ -90,27 +90,27 @@ namespace _8_Puzzle
 
         //Click movimentação btn state final
         private void btnPieceGoal_0_Click(object sender, EventArgs e)
-        {swapView(0, 0);}
+        {swapView(0, 0); clearStatistics(); }
         private void btnPieceGoal_1_Click(object sender, EventArgs e)
-        { swapView(0, 1);}
+        { swapView(0, 1); clearStatistics(); }
 
         private void btnPieceGoal_2_Click(object sender, EventArgs e)
-        { swapView(0, 2); }
+        { swapView(0, 2); clearStatistics(); }
 
         private void btnPieceGoal_3_Click(object sender, EventArgs e)
-        { swapView(1, 0); }
+        { swapView(1, 0); clearStatistics(); }
 
         private void btnPieceGoal_4_Click(object sender, EventArgs e)
-        { swapView(1, 1); }
+        { swapView(1, 1); clearStatistics(); }
 
         private void btnPieceGoal_5_Click(object sender, EventArgs e)
-        { swapView(1, 2); }
+        { swapView(1, 2); clearStatistics(); }
 
         private void btnPieceGoal_6_Click(object sender, EventArgs e)
-        { swapView(2, 0); }
+        { swapView(2, 0); clearStatistics(); }
 
         private void btnPieceGoal_7_Click(object sender, EventArgs e)
-        { swapView(2, 1); }
+        { swapView(2, 1); clearStatistics(); }
 
         private void btnPieceGoal_8_Click(object sender, EventArgs e)
         { swapView(2, 2); }
@@ -262,10 +262,22 @@ namespace _8_Puzzle
         //Carrega as opções de algoritmos para o combobox
         private void loadComboBox(ComboBox cbox, string[] cboxItens)
         {
+            cbox.Items.Clear();
             for (int i = 0; i < cboxItens.Length; i++)
                 cbox.Items.Add(cboxItens[i]);
-            comboBoxAlgorithm.SelectedIndex = 0;
+            cbox.SelectedIndex = 0;
         }
+
+        private void loadListBox(ListBox lbox, string[] lboxItens)
+        {
+            listBoxSteps.BeginUpdate();
+            lbox.Items.Clear();
+            for (int i = 1; i < lboxItens.Length; i++)
+                listBoxSteps.Items.Add(lboxItens[i]);
+            
+            listBoxSteps.EndUpdate();
+        }
+
         private void load_FormHome(object sender, EventArgs e)
         {
             loadState(BoardInitial, MatInitial);
@@ -292,11 +304,19 @@ namespace _8_Puzzle
                 Thread.Sleep(350);
             }
         }
+        private void clearStatistics()
+        {
+            gBoxStatistics.Visible = false;
+            btnCloseStatistics.Visible = false;
+            listBoxSteps.Visible = false;
+            lblSteps.Visible = false;
+        }
         private void showStatistics(SolutionStatistics statistics)
         {
             if (statistics != null)
             {
                 showPathSolution(statistics.Visiteds);
+                loadListBox(listBoxSteps, statistics.StepByStep.ToArray());
                 txtQtdSteps.Text = $"Movimentações: {statistics.Steps}";
                 txtTemp.Text = $"Tempo: {statistics.Temp} ms";
                 txtPathSolutionSize.Text = $"Tam. do Caminho: {statistics.PathSolutionSize}";
@@ -310,20 +330,23 @@ namespace _8_Puzzle
                 txtQtdDifferentStates.Visible = false;
             }
             btnCloseStatistics.Visible = true;
+            listBoxSteps.Visible = true;
+            lblSteps.Visible = true;
             gBoxStatistics.Visible = true;
         }
         private void btnCloseStatistics_Click(object sender, EventArgs e)
         {
-            gBoxStatistics.Visible = false;
-            btnCloseStatistics.Visible = false;
+            clearStatistics();
         }
         private void btnShuffle_Click(object sender, EventArgs e)
         {
+            clearStatistics();
             shuffle(MatInitial, ref PieceBlankInitial[0], ref PieceBlankInitial[1]);
             loadState(BoardInitial, MatInitial);
         }
         private void btnSolve_Click(object sender, EventArgs e)
         {
+            clearStatistics();
             App app = new App();
             int cbAlgorithmValue = comboBoxAlgorithm.SelectedIndex;
             showStatistics(app.menu(MatInitial, MatGoal, cbAlgorithmValue));

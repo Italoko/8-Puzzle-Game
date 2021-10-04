@@ -44,9 +44,6 @@ namespace _8_Puzzle.Models
             (_x, _y) = identifyBlankBoard();
         }
 
-        public Node()
-        {}
-
         internal Node Parent { get => _parent; set => _parent = value; }
         public int X { get => _x; set => _x = value; }
         public int Y { get => _y; set => _y = value; }

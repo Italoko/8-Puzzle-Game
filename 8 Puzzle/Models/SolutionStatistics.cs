@@ -12,6 +12,7 @@ namespace _8_Puzzle.Models
         TimeSpan _temp;
         int _steps, pathSolutionSize, _differentStates;
         List<int[,]> _visiteds;
+        List<string> _stepByStep;
 
         public SolutionStatistics(DateTime start, DateTime end, int steps, int differentStates,Node goal)
         {
@@ -19,7 +20,7 @@ namespace _8_Puzzle.Models
             End = end;
             Temp = end - start;
             Steps = steps;
-            Visiteds = getPath(goal);
+            (Visiteds,StepByStep) = getPath(goal);
             PathSolutionSize = Visiteds.Count();
             DifferentStates = differentStates;
         }
@@ -31,16 +32,49 @@ namespace _8_Puzzle.Models
         public int DifferentStates { get => _differentStates; set => _differentStates = value; }
         public List<int[,]> Visiteds { get => _visiteds; set => _visiteds = value; }
         public TimeSpan Temp { get => _temp; set => _temp = value; }
-        private List<int[,]> getPath(Node node)
+        public List<string> StepByStep { get => _stepByStep; set => _stepByStep = value; }
+
+        private string getStep(int x, int y, int antX, int antY)
         {
+            string changed = "Trocou com:";
+
+             // bottom, left, top, right
+             int[] row = new int[] { 1, 0, -1, 0 };
+             int[] col = new int[] { 0, -1, 0, 1 };
+
+
+            for (int i = 0; i < 4; i++)
+                if (antX + row[i] == x && antY + col[i] == y)
+                    switch (i)
+                    {
+                        case 0:
+                            return changed + "Abaixo";
+                        case 1:
+                            return changed + "Esquerda";
+                        case 2:
+                            return changed + "Cima";
+                        case 3:
+                            return changed + "Direita";
+                    }
+            return "";
+        }
+        private (List<int[,]>,List<string>) getPath(Node node)
+        {
+            int antX, antY;
             List<int[,]> path = new List<int[,]>();
-            while(node != null)
+            List<string> sbs = new List<string>();
+            
+            while (node != null)
             {
+                (antX, antY) = (node.X, node.Y);
                 path.Add(node.Mat);
                 node = node.Parent;
+                if(node!=null)
+                    sbs.Add(getStep(antX, antY,node.X, node.Y));
             }
             path.Reverse();
-            return path;
+            sbs.Reverse();
+            return (path,sbs);
         }
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace _8_Puzzle
 {
-    public abstract class Operations
+    public class Operations
     {
         // bottom, left, top, right
         public int[] row = new int[] { 1, 0, -1, 0 };
@@ -78,5 +78,6 @@ namespace _8_Puzzle
                 Console.WriteLine("   ");
             }
         }
+
     }
 }

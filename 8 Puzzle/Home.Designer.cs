@@ -73,6 +73,8 @@ namespace _8_Puzzle
             this.btnResult_5 = new System.Windows.Forms.Button();
             this.btnResult_3 = new System.Windows.Forms.Button();
             this.btnResult_4 = new System.Windows.Forms.Button();
+            this.listBoxSteps = new System.Windows.Forms.ListBox();
+            this.lblSteps = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -116,6 +118,8 @@ namespace _8_Puzzle
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.Controls.Add(this.lblSteps);
+            this.splitContainer1.Panel2.Controls.Add(this.listBoxSteps);
             this.splitContainer1.Panel2.Controls.Add(this.btnCloseStatistics);
             this.splitContainer1.Panel2.Controls.Add(this.gBoxStatistics);
             this.splitContainer1.Panel2.Controls.Add(this.progressBarSolve);
@@ -634,6 +638,31 @@ namespace _8_Puzzle
             this.btnResult_4.TabIndex = 25;
             this.btnResult_4.UseVisualStyleBackColor = true;
             // 
+            // listBoxSteps
+            // 
+            this.listBoxSteps.BackColor = System.Drawing.SystemColors.WindowFrame;
+            this.listBoxSteps.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.listBoxSteps.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.listBoxSteps.FormattingEnabled = true;
+            this.listBoxSteps.ItemHeight = 16;
+            this.listBoxSteps.Location = new System.Drawing.Point(9, 180);
+            this.listBoxSteps.Name = "listBoxSteps";
+            this.listBoxSteps.Size = new System.Drawing.Size(168, 258);
+            this.listBoxSteps.TabIndex = 35;
+            this.listBoxSteps.Visible = false;
+            // 
+            // lblSteps
+            // 
+            this.lblSteps.AutoSize = true;
+            this.lblSteps.Font = new System.Drawing.Font("MS Reference Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSteps.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.lblSteps.Location = new System.Drawing.Point(7, 150);
+            this.lblSteps.Name = "lblSteps";
+            this.lblSteps.Size = new System.Drawing.Size(122, 16);
+            this.lblSteps.TabIndex = 36;
+            this.lblSteps.Text = "Passo a Passo:";
+            this.lblSteps.Visible = false;
+            // 
             // eightpuzzle
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -645,6 +674,8 @@ namespace _8_Puzzle
             this.Font = new System.Drawing.Font("MS Reference Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
+            this.MaximumSize = new System.Drawing.Size(898, 593);
+            this.MinimumSize = new System.Drawing.Size(898, 593);
             this.Name = "eightpuzzle";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "8 Puzzle";
@@ -706,6 +737,8 @@ namespace _8_Puzzle
         private System.Windows.Forms.TextBox txtTemp;
         private System.Windows.Forms.TextBox txtQtdSteps;
         private System.Windows.Forms.Button btnCloseStatistics;
+        private System.Windows.Forms.ListBox listBoxSteps;
+        private System.Windows.Forms.Label lblSteps;
     }
 }
 
