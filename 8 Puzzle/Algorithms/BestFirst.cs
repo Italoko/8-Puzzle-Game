@@ -36,7 +36,8 @@ namespace _8_Puzzle.Algorithms
                 if (lowestCost.H == 0)
                     flag = true;
                 else
-                    for (int i = 0; i < 4; i++) 
+                {
+                    for (int i = 0; i < 4; i++)
                         if (validatePosition(lowestCost.X + row[i], lowestCost.Y + col[i]))
                         {
                             matTemp = copyMat(lowestCost.Mat);
@@ -49,7 +50,8 @@ namespace _8_Puzzle.Algorithms
                             }
                             qtdStates++;
                         }
-                mov++;
+                    mov++;
+                }
             }
             closedList.Add(goal);
             DateTime end = DateTime.Now;

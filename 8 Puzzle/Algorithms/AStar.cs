@@ -38,6 +38,7 @@ namespace _8_Puzzle.Algorithms
                 if (lowestCost.H == 0) //encontrou
                     flag = true;
                 else
+                {
                     for (int i = 0; i < 4; i++) // até 4 filhos por node
                         if (validatePosition(lowestCost.X + row[i], lowestCost.Y + col[i]))
                         {
@@ -51,7 +52,8 @@ namespace _8_Puzzle.Algorithms
                             }
                             qtdStates++;
                         }
-                mov++;
+                    mov++;
+                }
             }
             DateTime end = DateTime.Now; // fim da solução
             printPath(lowestCost);
